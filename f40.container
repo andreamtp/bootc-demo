@@ -1,2 +1,2 @@
 FROM quay.io/fedora/fedora-bootc:40
-RUN dnf -y update && dnf -y install tmux mkpasswd
+RUN dnf -y update && dnf -y install tmux mkpasswd kitty-terminfo
