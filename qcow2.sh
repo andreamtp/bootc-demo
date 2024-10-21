@@ -3,7 +3,7 @@
 source demo.sh/demo.sh
 
 CONTAINERFILE=f40.container
-TAG=f40-bootc:iso
+TAG=f40-bootc:demo
 IMAGE_BUILDER_CONF=config-qcow2.toml
 
 ps1() {
