@@ -2,7 +2,7 @@
 
 source demo.sh/demo.sh
 
-CONTAINERFILE=Containerfile-f40.simple
+CONTAINERFILE=f40.container
 TAG=f40-bootc:iso
 IMAGE_BUILDER_CONF=config-iso.toml
 
