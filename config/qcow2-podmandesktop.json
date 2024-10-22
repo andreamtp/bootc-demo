@@ -1,0 +1,24 @@
+{
+  "customizations": {
+    "user": [
+      {
+        "name": "user",
+        "password": "password",
+        "key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/f983zoDwTQXhEdQEtzuTGoeA5brs2biHxs+TRUcUM",
+        "groups": [
+          "wheel"
+        ]
+      }
+    ],
+    "filesystem": [
+      {
+        "mountpoint": "/",
+        "minsize": "5 GiB"
+      },
+      {
+        "mountpoint": "/var/data",
+        "minsize": "8 GiB"
+      }
+    ]
+  }
+}
