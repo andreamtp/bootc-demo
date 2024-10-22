@@ -8,7 +8,7 @@ enable = [
 contents = """
 #text --non-interactive
 
-user --name bootc-user --password $6$Pd5RJMDyxt51VX6K$NpxeiZrcQntvu.t6mps7vhHBjQcvZFFp2suBg5ng0W3WWwqMDD/UrtgEtLOCU4CwZc93ApqVvZ6fdjVhei32K1 --iscrypted --groups wheel
+user --name user --password $6$Pd5RJMDyxt51VX6K$NpxeiZrcQntvu.t6mps7vhHBjQcvZFFp2suBg5ng0W3WWwqMDD/UrtgEtLOCU4CwZc93ApqVvZ6fdjVhei32K1 --iscrypted --groups wheel
 rootpw --lock
 lang en_GB.UTF-8
 keyboard it
@@ -34,7 +34,7 @@ network --bootproto=dhcp --device=link --activate --onboot=on
 
 reboot --eject
 %post
-bootc switch --mutate-in-place --transport registry quay.io/aperotti/f40-bootc-simple:vm
+bootc switch --mutate-in-place --transport registry quay.io/aperotti/cs9-bootc:linuxday
 
 # used during automatic image testing as finished marker
 if [ -c /dev/ttyS0 ]; then

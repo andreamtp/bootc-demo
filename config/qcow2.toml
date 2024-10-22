@@ -1,14 +1,18 @@
 [[customizations.user]]
-name = "bootc-user"
+name = "user"
 password = "password"
+key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/f983zoDwTQXhEdQEtzuTGoeA5brs2biHxs+TRUcUM"
 groups = ["wheel"]
 
-[customizations.locale]
-languages = ["en_GB.UTF-8"]
-keyboard = "it"
-
-[customizations.timezone]
-timezone = "Europe/Rome"
+# Not working yet:
+# https://osbuild.org/docs/user-guide/blueprint-reference#timezone
+#
+# [customizations.locale]
+# languages = ["en_GB.UTF-8"]
+# keyboard = "it"
+#
+# [customizations.timezone]
+# timezone = "Europe/Rome"
 
 [[customizations.filesystem]]
 mountpoint = "/"
