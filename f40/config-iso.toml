@@ -1,0 +1,17 @@
+[[customizations.user]]
+name = "bootc-user"
+password = "password"
+groups = ["wheel"]
+
+[customizations.locale]
+languages = ["en_GB.UTF-8"]
+keyboard = "it"
+
+[customizations.timezone]
+timezone = "Europe/Rome"
+
+[customizations.installer.modules]
+enable = [
+  "org.fedoraproject.Anaconda.Modules.Localization",
+  "org.fedoraproject.Anaconda.Modules.Timezone"
+]

@@ -1,0 +1,19 @@
+[[customizations.user]]
+name = "bootc-user"
+password = "password"
+groups = ["wheel"]
+
+[customizations.locale]
+languages = ["en_GB.UTF-8"]
+keyboard = "it"
+
+[customizations.timezone]
+timezone = "Europe/Rome"
+
+[[customizations.filesystem]]
+mountpoint = "/"
+minsize = "5 GiB"
+
+[[customizations.filesystem]]
+mountpoint = "/var/data"
+minsize = "8 GiB"

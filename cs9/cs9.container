@@ -1,0 +1,3 @@
+FROM quay.io/centos-bootc/centos-bootc:stream9
+RUN dnf -y remove *firmware* fwupd* pcsc* kernel-modules
+RUN dnf -y update && dnf -y install tmux mkpasswd && dnf -y autoremove && dnf clean all

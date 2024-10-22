@@ -1,0 +1,44 @@
+[customizations.installer.modules]
+enable = [
+  "org.fedoraproject.Anaconda.Modules.Localization",
+  "org.fedoraproject.Anaconda.Modules.Timezone"
+]
+
+[customizations.installer.kickstart]
+contents = """
+#text --non-interactive
+
+user --name bootc-user --password $6$Pd5RJMDyxt51VX6K$NpxeiZrcQntvu.t6mps7vhHBjQcvZFFp2suBg5ng0W3WWwqMDD/UrtgEtLOCU4CwZc93ApqVvZ6fdjVhei32K1 --iscrypted --groups wheel
+rootpw --lock
+lang en_GB.UTF-8
+keyboard it
+timezone Europe/Rome
+
+zerombr
+clearpart --all --initlabel --disklabel=gpt
+reqpart --add-boot
+
+part pv.01 --grow --size=1
+volgroup vg_int pv.01
+
+# LVM Thin 
+logvol none --fstype="lvmpool" --grow --size=1 --thinpool --name=pool00 --vgname=vg_int
+logvol / --fstype=xfs --size=4096 --name=lv_root --vgname=vg_int --thin --poolname=pool00
+logvol /var/home --fstype=xfs --size=3072 --name=lv_home --vgname=vg_int --thin --poolname=pool00
+
+#logvol / --vgname=vg_int --size=4000 --name=lv_root --label=ROOT --fstype=xfs
+#part swap --fstype=swap --size=1024
+#part / --fstype=ext4 --grow
+
+network --bootproto=dhcp --device=link --activate --onboot=on
+
+reboot --eject
+%post
+bootc switch --mutate-in-place --transport registry quay.io/aperotti/f40-bootc-simple:vm
+
+# used during automatic image testing as finished marker
+if [ -c /dev/ttyS0 ]; then
+    echo "Install finished" > /dev/ttyS0
+fi
+%end
+"""
