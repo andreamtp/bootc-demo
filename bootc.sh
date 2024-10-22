@@ -28,7 +28,7 @@ CONTAINERFILE=${DISTRO}/${DISTRO}.container
 TAG=${DISTRO}-bootc:linuxday
 IMAGE_BUILDER_CONF=config/${TARGET}.toml
 REGISTRY=quay.io/aperotti
-$REPO=${REGISTRY}/$TAG
+REPO=${REGISTRY}/$TAG
 if [[ "$TARGET" == "qcow2" ]]; then
     OUTPUTDIR=${DISTRO}/$TARGET
 else
@@ -64,6 +64,10 @@ pause
 # we want to have this container avail also for root user
 # podman image scp $(whoami)@localhost::$TAG
 clear
+pei "podman push localhost/$TAG $REPO"
+sudo podman pull $REPO
+pause
+clear
 pei "bat -n $IMAGE_BUILDER_CONF"
 echo ""
 pause
@@ -74,7 +78,7 @@ echo "sudo podman run
 --privileged
 --pull=newer
 --security-opt label=type:unconfined_t
--v $(pwd)/output:/output
+-v $(pwd)/${DISTRO}:/output
 -v $(pwd)/$IMAGE_BUILDER_CONF:/config.toml:ro
 -v /var/lib/containers/storage:/var/lib/containers/storage
 quay.io/centos-bootc/bootc-image-builder:latest
@@ -91,7 +95,7 @@ sudo podman run \
     --privileged \
     --pull=newer \
     --security-opt label=type:unconfined_t \
-    -v $(pwd)/output:/output \
+    -v $(pwd)/${DISTRO}:/output \
     -v $(pwd)/$IMAGE_BUILDER_CONF:/config.toml:ro \
     -v /var/lib/containers/storage:/var/lib/containers/storage \
     quay.io/centos-bootc/bootc-image-builder:latest \
@@ -101,19 +105,6 @@ sudo podman run \
     $REPO
 
 pei "ls -lsah $OUTPUTDIR"
-
-# type the command automatically'
-# DEMO_AUTO_TYPE=yes
-
-# control the speed of typing with DEMO_CSIZE and DEMO_SPEED'
-# slow
-# DEMO_CSIZE=1 DEMO_SPEED=0.5
-
-# fast
-# DEMO_CSIZE=1 DEMO_SPEED=0.01
-
-# automatically send the command without pressing enter'
-# DEMO_NOWAIT=yes
 
 pause
 clear
