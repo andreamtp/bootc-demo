@@ -1,4 +1,3 @@
 FROM quay.io/fedora/fedora-bootc:40
-RUN dnf -y install dnf5 && dnf clean all
-RUN dnf5 -y remove *firmware* fwupd* pcsc* kernel-modules
-RUN dnf5 -y update && dnf5 -y install tmux mkpasswd kitty-terminfo && dnf5 -y autoremove && dnf5 clean all
+RUN dnf -y remove *firmware* fwupd* pcsc* kernel-modules
+RUN dnf -y update && dnf -y install tmux mkpasswd kitty-terminfo && dnf -y autoremove && dnf clean all
