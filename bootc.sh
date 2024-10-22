@@ -26,7 +26,7 @@ TARGET=$2
 
 CONTAINERFILE=${DISTRO}/${DISTRO}.container
 TAG=${DISTRO}-bootc:linuxday
-IMAGE_BUILDER_CONF=${DISTRO}/config-${TARGET}.toml
+IMAGE_BUILDER_CONF=config/${TARGET}.toml
 REGISTRY=quay.io/aperotti
 $REPO=${REGISTRY}/$TAG
 if [[ "$TARGET" == "qcow2" ]]; then
