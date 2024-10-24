@@ -23,17 +23,20 @@ fi
 
 DISTRO=$1
 TARGET=$2
+TYPE=$2
+
+if [[ "$2" == "qcow2" ]]; then
+    OUTPUTDIR=${DISTRO}/$TARGET
+else
+    OUTPUTDIR=${DISTRO}/bootiso
+    TYPE=anaconda-iso
+fi
 
 CONTAINERFILE=${DISTRO}/${DISTRO}.container
 TAG=${DISTRO}-bootc:linuxday
 IMAGE_BUILDER_CONF=config/${TARGET}.toml
 REGISTRY=quay.io/aperotti
 REPO=${REGISTRY}/$TAG
-if [[ "$TARGET" == "qcow2" ]]; then
-    OUTPUTDIR=${DISTRO}/$TARGET
-else
-    OUTPUTDIR=${DISTRO}/bootiso
-fi
 
 
 ps1() {
@@ -82,7 +85,7 @@ echo "sudo podman run
 -v $(pwd)/$IMAGE_BUILDER_CONF:/config.toml:ro
 -v /var/lib/containers/storage:/var/lib/containers/storage
 quay.io/centos-bootc/bootc-image-builder:latest
---type $TARGET
+--type $TYPE
 --rootfs xfs
 --local
 $REPO" | highlight -S sh -O ansi
@@ -99,7 +102,7 @@ sudo podman run \
     -v $(pwd)/$IMAGE_BUILDER_CONF:/config.toml:ro \
     -v /var/lib/containers/storage:/var/lib/containers/storage \
     quay.io/centos-bootc/bootc-image-builder:latest \
-    --type $TARGET \
+    --type $TYPE \
     --rootfs xfs \
     --local \
     $REPO
