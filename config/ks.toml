@@ -9,6 +9,7 @@ contents = """
 #text --non-interactive
 
 user --name user --password $6$Pd5RJMDyxt51VX6K$NpxeiZrcQntvu.t6mps7vhHBjQcvZFFp2suBg5ng0W3WWwqMDD/UrtgEtLOCU4CwZc93ApqVvZ6fdjVhei32K1 --iscrypted --groups wheel
+sshkey --username=user "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/f983zoDwTQXhEdQEtzuTGoeA5brs2biHxs+TRUcUM"
 rootpw --lock
 lang en_GB.UTF-8
 keyboard it
