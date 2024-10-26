@@ -33,10 +33,11 @@ else
 fi
 
 CONTAINERFILE=${DISTRO}/${DISTRO}.container
-TAG=${DISTRO}-bootc:linuxday
 IMAGE_BUILDER_CONF=config/${TARGET}.toml
 REGISTRY=quay.io/aperotti
-REPO=${REGISTRY}/$TAG
+REPO=${REGISTRY}/${DISTRO}-bootc
+TAG=linuxday
+IMAGE=${REPO}:$TAG
 
 
 ps1() {
@@ -61,16 +62,16 @@ pei "bat -n $CONTAINERFILE"
 echo ""
 pause
 
-pei "podman build -f $CONTAINERFILE -t $TAG ."
+pei "podman build -f $CONTAINERFILE -t $IMAGE ."
 echo ""
 pause
 # we want to have this container avail also for root user
-# podman image scp $(whoami)@localhost::$TAG
+podman image scp $(whoami)@localhost::$IMAGE
 clear
-pei "podman push localhost/$TAG $REPO"
-sudo podman pull $REPO
-pause
-clear
+##pei "podman push localhost/$TAG $REPO"
+##sudo podman pull $REPO
+##pause
+##clear
 pei "bat -n $IMAGE_BUILDER_CONF"
 echo ""
 pause
@@ -88,7 +89,7 @@ quay.io/centos-bootc/bootc-image-builder:latest
 --type $TYPE
 --rootfs xfs
 --local
-$REPO" | highlight -S sh -O ansi
+$IMAGE" | highlight -S sh -O ansi
 echo ""
 pause
 
@@ -105,7 +106,7 @@ sudo podman run \
     --type $TYPE \
     --rootfs xfs \
     --local \
-    $REPO
+    $IMAGE
 
 pei "ls -lsah $OUTPUTDIR"
 
